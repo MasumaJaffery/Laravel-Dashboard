@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -17,6 +16,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'admin_user'; // Specify the table name
     protected $fillable = [
         'name',
         'email',
