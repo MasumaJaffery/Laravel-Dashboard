@@ -26,7 +26,6 @@ Route::put('/users/{id}', [AdminController::class, 'update'])->name('users.updat
 Route::delete('/users/{id}', [AdminController::class, 'destroy'])->name('users.destroy'); 
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-
 Route::get('/admin/guests', [AdminController::class, 'showGuestList'])->name('admin.guests');
 Route::post('/admin/guests/store', [AdminController::class, 'storeGuest'])->name('admin.guests.store');
 Route::put('/admin/guests/update/{id}', [AdminController::class, 'updateGuest'])->name('admin.guests.update');
