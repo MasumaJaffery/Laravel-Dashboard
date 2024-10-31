@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Guest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+
 class AdminController extends Controller
 {
+    // Admin Authentication and Profile Methods
     public function showRegister()
     {
         return view('admin.register');
@@ -228,6 +231,65 @@ class AdminController extends Controller
              return redirect()->route('admin.user')->with('success', 'User deleted successfully.');
          }
         
+    // Guest Management Methods
+
+    public function showGuestList()
+    {
+        $guests = Guest::all();
+        return view('admin.guests', ['guests' => $guests]);
+    }
+
     
+    public function storeGuest(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:guests,email',
+        'bio' => 'nullable|string',
+        'phonenumber' => 'nullable|string|max:20',
+    ]);
+
+    $guest = new Guest([
+        'name' => $request->name,
+        'email' => $request->email,
+        'bio' => $request->bio,
+        'phonenumber' => $request->phonenumber,
+    ]);
+
+    $guest->save();
+
+    return redirect()->route('admin.guests')->with('success', 'Guest created successfully');
+}
+
+
+
+    public function showGuestsList()
+    {
+        $guests = Guest::all();
+        return view('admin.guests', ['guests' => $guests]);
+    }
+
     
+    public function updateGuest(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'string|max:255',
+            'email' => 'email|unique:guests,email,' . $id,
+            'bio' => 'nullable|string',
+            'phonenumber' => 'nullable|string|max:20',
+        ]);
+
+        $guest = Guest::findOrFail($id);
+        $guest->update($request->all());
+
+        return redirect()->route('admin.guests')->with('success', 'Guest updated successfully');
+    }
+
+    public function destroyGuest($id)
+    {
+        $guest = Guest::findOrFail($id);
+        $guest->delete();
+
+        return redirect()->route('admin.guests')->with('success', 'Guest deleted successfully');
+    }
 }

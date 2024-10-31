@@ -1,4 +1,3 @@
-
 <?php
 
 use App\Http\Controllers\AdminController;
@@ -23,7 +22,11 @@ Route::post('/admin/profile', [AdminController::class, 'updateProfile'])->name('
 
 Route::get('/admin/user', [AdminController::class, 'showUserList'])->name('admin.user');
 Route::post('/users', [AdminController::class, 'store'])->name('users.store');
-
 Route::put('/users/{id}', [AdminController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [AdminController::class, 'destroy'])->name('users.destroy'); 
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+Route::get('/admin/guests', [AdminController::class, 'showGuestList'])->name('admin.guests');
+Route::post('/admin/guests/store', [AdminController::class, 'storeGuest'])->name('admin.guests.store');
+Route::put('/admin/guests/update/{id}', [AdminController::class, 'updateGuest'])->name('admin.guests.update');
+Route::delete('/admin/guests/destroy/{id}', [AdminController::class, 'destroyGuest'])->name('admin.guests.destroy');
