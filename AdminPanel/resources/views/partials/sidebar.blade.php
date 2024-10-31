@@ -34,6 +34,23 @@
             </div>
         </li>
 
+ <!-- Guests -->
+ <li class="nav-item">
+            <a class="nav-link {{ request()->is('aadmin/guests*') ? 'active' : '' }}" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+                <i class="icon-columns menu-icon"></i>
+                <span class="menu-title">Guests</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse {{ request()->is('admin/guests*') ? 'show' : '' }}" id="form-elements">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('admin/guests') ? 'active' : '' }}" href="{{ route('admin.guests') }}">Guest List</a>
+                    </li>
+                    <!-- Add more sub-menu items if needed -->
+                </ul>
+            </div>
+        </li>
+
         <!-- Charts -->
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
